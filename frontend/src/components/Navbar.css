@@ -1,0 +1,47 @@
+.main-nav {
+    padding: 0 8px;
+    min-height: 68px;
+  }
+  
+  .nav-logo-text {
+    text-decoration: none;
+  }
+
+  .nav-logo-text h4 {
+    font-weight: 700;
+    font-size: 24px;
+    color: #000;
+  }
+  .btn-logout {
+      border: 2px solid #000;
+      border-radius: 10px;
+      width: 100px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .btn-logout h6 {
+      color: #000;
+      font-weight: bold;
+      font-size: 14px;
+  }
+
+  .btn-logout:hover {
+    border: 2px solid #000;
+  }
+
+  /* MD */
+  @media (min-width: 768px) {
+    .main-nav {
+      padding: 0 40px;
+    }
+  }
+
+  /* L */
+  @media (min-width: 992px) {
+    .main-nav {
+      padding: 0 60px;
+    }
+  }
