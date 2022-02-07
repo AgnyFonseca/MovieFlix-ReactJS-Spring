@@ -1,0 +1,25 @@
+.review-container {
+    padding: 15px;
+}
+
+.review-username {
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+.review-username h6 {
+    padding-left: 12px;
+}
+
+.review-box {
+    border: 1px solid #E1E1E1;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.review-box p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #9E9E9E;
+}
