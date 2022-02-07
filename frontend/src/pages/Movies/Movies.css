@@ -1,0 +1,49 @@
+.movies-container {
+    padding: 20px 8px;
+}
+
+.movies-container h1 {
+    font-size: 24px;
+    padding-bottom: 50px;
+}
+
+.movies-container p {
+  font-size: 18px;
+}
+
+ /* MD */
+ @media (min-width: 768px) {
+    .movies-container {
+      padding: 30px 40px;
+    }
+
+    .movies-container h1 {
+        font-size: 32px;
+    }
+  }
+
+  /* L */
+  @media (min-width: 992px) {
+    .movies-container {
+      padding: 40px 60px;
+    }
+
+    .movies-container h1 {
+        font-size: 34px;
+    }
+
+    .movies-container p {
+        font-size: 20px;
+      }
+  }
+
+  /* XL */
+@media (min-width: 1200px) {
+    .movies-container h1 {
+        font-size: 48px;
+    }
+
+    .movies-container p {
+        font-size: 24px;
+      }
+}

@@ -1,0 +1,63 @@
+.moviedetails-container {
+    padding: 20px 8px;
+}
+
+.moviedetails-container h1 {
+    font-size: 24px;
+}
+
+.rating-card {
+  height: 160px;
+  margin-top: 20px;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.rating-card input {
+  margin-bottom: 20px;
+}
+
+.rating-card h6 {
+  font-size: 16px;
+}
+
+/* SM */
+@media (min-width: 576px) {
+  .rating-card {
+    height: 165px;
+    margin-top: 25px;
+  }
+
+  .rating-card button {
+    width: 360px;
+  }
+}
+
+ /* MD */
+ @media (min-width: 768px) {
+  .moviedetails-container {
+      padding: 30px 40px;
+    }
+
+    .moviedetails-container h1 {
+        font-size: 32px;
+    }
+  }
+
+  /* LG */
+  @media (min-width: 992px) {
+    .moviedetails-container {
+      padding: 40px 60px;
+    }
+
+    .moviedetails-container h1 {
+        font-size: 34px;
+    }
+  }
+
+  /* XL */
+@media (min-width: 1200px) {
+    .moviedetails-container h1 {
+        font-size: 48px;
+    }
+}

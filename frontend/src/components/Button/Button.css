@@ -1,0 +1,9 @@
+.btn-login {
+    height: 50px;
+    width: 100%;
+}
+
+.btn-login h6 {
+    font-size: 20px;
+    color: #000;
+}

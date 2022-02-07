@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
+import Button from '../../../components/Button/Button';
 import './Login.css';
 
 const Login = () => {
     return (
-        <div className="login-card">
+        <div className="login-card base-card">
             <h1>LOGIN</h1>
             <form className="form-container">
                 <div>
@@ -16,9 +18,9 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <button className="btn btn-primary btn-login">
-                        <h6>FAZER LOGIN</h6>
-                    </button>
+                    <Link to="/movies">
+                        <Button title="Fazer Login" />
+                    </Link>
                 </div>
             </form>
         </div>
