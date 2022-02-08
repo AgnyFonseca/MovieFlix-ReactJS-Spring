@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
+import { requestBackendLogin } from '../../../util/requests';
 import './Login.css';
 
 type FormData = {
@@ -13,7 +14,13 @@ const Login = () => {
     const { register, handleSubmit } = useForm<FormData>();
 
     const onSubmit = (formData : FormData) => {
-        console.log(formData);
+        requestBackendLogin(formData)
+            .then(response => {
+                console.log('SUCESSO', formData);
+            })
+            .catch(error => {
+                console.log('ERRO', error);
+            });
     };
 
 

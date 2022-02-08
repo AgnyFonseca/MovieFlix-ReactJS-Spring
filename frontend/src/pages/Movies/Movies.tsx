@@ -12,9 +12,6 @@ const Movies = () => {
                 <Link to="/movies/1">
                     <p>Acessar/movies/2</p>
                 </Link>
-                <Link to="/movies/1">
-                    <p>Acessar/movies/3</p>
-                </Link>
             </div>
         </div>
     );
