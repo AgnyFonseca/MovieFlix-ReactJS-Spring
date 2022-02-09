@@ -47,6 +47,7 @@ const Login = () => {
                             }
                         })}
                         type="text"
+                        className={`${errors.username ? 'is-invalid' : ''}`}
                         placeholder="Email"
                         name="username"
                     />
@@ -58,6 +59,7 @@ const Login = () => {
                             required: 'Campo obrigatório'
                         })}
                         type="password"
+                        className={`${errors.password ? 'is-invalid' : ''}`}
                         placeholder="Senha"
                         name="password"
                     />

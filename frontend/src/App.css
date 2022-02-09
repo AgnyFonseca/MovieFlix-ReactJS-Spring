@@ -28,6 +28,7 @@ a:hover {
 input {
   background-color: #FEFEFE;
   border: 1px solid #FEFEFE;
+  outline-color: #9E9E9E;
   border-radius: 4px;
   font-size: 16px;
   height: 50px;
