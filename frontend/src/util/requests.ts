@@ -66,7 +66,7 @@ export const requestBackendLogin = (loginData: LoginData) => {
     },
     function (error) {
       if (error.response.status === 401) {
-        history.push('/admin/auth');
+        history.push('/');
       }
       return Promise.reject(error);
     }
