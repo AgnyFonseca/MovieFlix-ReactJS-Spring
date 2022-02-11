@@ -27,7 +27,6 @@
 /* SM */
 @media (min-width: 576px) {
   .review-form {
-    height: 180px;
     margin-top: 25px;
   }
 

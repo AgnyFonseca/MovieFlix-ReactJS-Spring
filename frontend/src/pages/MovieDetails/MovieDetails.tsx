@@ -28,7 +28,9 @@ const MovieDetails = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>();
 
-    const [reviews, setReviews ] = useState<SpringList<Review>>();
+    const [reviews, setReviews] = useState<SpringList<Review>>();
+
+    const [hasError, setHasError] = useState(false);
 
     const history = useHistory();
 
@@ -59,19 +61,26 @@ const MovieDetails = () => {
         postReview(formData)
             .then((response) => {
                 reviews?.data.push(response.data);
+                setHasError(false);
                 history.push(`/movies/${movieId}/reviews`);
             })
             .catch((error) => {
-                console.log('ERRO', error)
+                setHasError(true);
+                console.log('ERRO', error);
             });
         setValue('text', '');
-      };
+    };
 
     return (
         <div className="moviedetails-container">
             <h1>Tela detalhes do filme id: {movie?.id}</h1>
             {hasAnyRoles(['ROLE_MEMBER']) &&
                 <div className="review-form base-card">
+                    {hasError && (
+                        <div className="alert alert-danger">
+                            Erro ao tentar salvar a avaliação
+                        </div>
+                    )}
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input
                             {...register('text', {
