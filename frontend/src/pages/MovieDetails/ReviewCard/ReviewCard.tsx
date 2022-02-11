@@ -1,4 +1,4 @@
-import './Review.css';
+import './ReviewCard.css';
 import { ReactComponent as StarIcon } from '../../../assets/images/star.svg';
 
 type ReviewProps = {

@@ -1,20 +1,33 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { Movie } from '../../types/movie';
-import { requestBackend } from '../../util/requests';
+import { Review } from '../../types/review';
+import { SpringList } from '../../types/spring';
+import { hasAnyRoles } from '../../util/auth';
+import { postReview, requestBackend } from '../../util/requests';
 import './MovieDetails.css';
-import Review from './Review/Review';
+import ReviewCard from './ReviewCard/ReviewCard';
 
 type UrlParams = {
     movieId: string;
+}
+
+type FormData = {
+    text: string;
+    movieId: number;
 }
 
 const MovieDetails = () => {
     const { movieId } = useParams<UrlParams>();
 
     const [movie, setMovie] = useState<Movie>();
+
+    const { register, handleSubmit, setValue, formState: {errors} } = useForm<FormData>();
+
+    const [reviews, setReviews] = useState<SpringList<Review>>();
 
     useEffect(() => {
         const params: AxiosRequestConfig = {
@@ -26,34 +39,58 @@ const MovieDetails = () => {
         });
     }, [movieId]);
 
+    useEffect(() => {
+        const params: AxiosRequestConfig = {
+            url: `/movies/${movieId}/reviews`,
+            withCredentials: true,
+        };
+
+        requestBackend(params).then((response) => {
+            setReviews(response);
+        });
+    }, [movieId]);
+
+    const onSubmit = (formData: FormData) => {
+        formData.movieId = Number(movieId);
+        console.log(formData.text);
+        postReview(formData)
+            .then((response) => {
+                reviews?.data.push(response.data);
+            })
+            .catch((error) => {
+                console.log('ERRO', error)
+            });
+        setValue('text', '');
+      };
 
     return (
         <div className="moviedetails-container">
             <h1>Tela detalhes do filme id: {movie?.id}</h1>
-            <div className="rating-card base-card">
-                <input
-                    placeholder="Deixe sua avaliação aqui"
-                />
-                <Button title="Salvar Avaliação" />
-            </div>
+            {hasAnyRoles(['ROLE_MEMBER']) &&
+                <div className="review-form base-card">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <input
+                            {...register('text', {
+                                required: 'Campo não pode estar em branco',
+                            })}
+                            type="text"
+                            name="text"
+                            placeholder="Deixe sua avaliação aqui"
+                        />
+                        <div className="invalid-feedback d-block">{errors.text?.message}</div>
+                        <Button title="Salvar Avaliação" />
+                    </form>
+                </div>
+            }
 
             <div className="review-card base-card">
-                <Review
-                    username="Maria Silva"
-                    review="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."
-                />
-                <Review
-                    username="Maria Silva"
-                    review="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."
-                />
-                <Review
-                    username="Maria Silva"
-                    review="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."
-                />
-                <Review
-                    username="Maria Silva"
-                    review="Gostei muito do filme. Foi muito bom mesmo. Pena que durou pouco."
-                />
+                {reviews?.data.map((review) => (
+                    <ReviewCard
+                        username={review.user.name}
+                        review={review.text}
+                        key={review.id}
+                    />
+                ))}
             </div>
         </div>
     );

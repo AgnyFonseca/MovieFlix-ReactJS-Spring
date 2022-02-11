@@ -9,3 +9,7 @@ export type SpringPage<T> = {
     numberOfElements?: number;
     empty: boolean;
   };
+
+  export type SpringList<T> = {
+    data: T[];
+  };

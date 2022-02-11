@@ -6,29 +6,32 @@
     font-size: 24px;
 }
 
-.rating-card {
-  height: 160px;
+.review-form {
   margin: 20px 0;
   padding: 20px 10px;
   text-align: center;
 }
 
-.rating-card input {
-  margin-bottom: 20px;
+.review-form h6 {
+  font-size: 16px;
 }
 
-.rating-card h6 {
-  font-size: 16px;
+.review-form button {
+  margin-top: 20px;
+}
+
+.review-card {
+  margin-top: 30px;
 }
 
 /* SM */
 @media (min-width: 576px) {
-  .rating-card {
-    height: 165px;
+  .review-form {
+    height: 180px;
     margin-top: 25px;
   }
 
-  .rating-card button {
+  .review-form button {
     width: 360px;
   }
 }
