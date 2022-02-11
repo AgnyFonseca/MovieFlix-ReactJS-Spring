@@ -1,15 +1,16 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { Movie } from '../../types/movie';
 import { Review } from '../../types/review';
 import { SpringList } from '../../types/spring';
 import { hasAnyRoles } from '../../util/auth';
-import { postReview, requestBackend } from '../../util/requests';
-import './MovieDetails.css';
+import { requestBackend, postReview } from '../../util/requests';
 import ReviewCard from './ReviewCard/ReviewCard';
+
+import './MovieDetails.css';
 
 type UrlParams = {
     movieId: string;
@@ -25,9 +26,11 @@ const MovieDetails = () => {
 
     const [movie, setMovie] = useState<Movie>();
 
-    const { register, handleSubmit, setValue, formState: {errors} } = useForm<FormData>();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>();
 
-    const [reviews, setReviews] = useState<SpringList<Review>>();
+    const [reviews, setReviews ] = useState<SpringList<Review>>();
+
+    const history = useHistory();
 
     useEffect(() => {
         const params: AxiosRequestConfig = {
@@ -56,6 +59,7 @@ const MovieDetails = () => {
         postReview(formData)
             .then((response) => {
                 reviews?.data.push(response.data);
+                history.push(`/movies/${movieId}/reviews`);
             })
             .catch((error) => {
                 console.log('ERRO', error)
