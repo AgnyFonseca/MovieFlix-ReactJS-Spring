@@ -2,10 +2,6 @@
     padding: 20px 8px;
 }
 
-.moviedetails-container h1 {
-    font-size: 24px;
-}
-
 .review-form {
   margin: 20px 0;
   padding: 20px 10px;
@@ -29,20 +25,12 @@
   .review-form {
     margin-top: 25px;
   }
-
-  .review-form button {
-    width: 360px;
-  }
 }
 
  /* MD */
  @media (min-width: 768px) {
   .moviedetails-container {
       padding: 30px 40px;
-    }
-
-    .moviedetails-container h1 {
-        font-size: 32px;
     }
   }
 
@@ -52,14 +40,14 @@
       padding: 40px 60px;
     }
 
-    .moviedetails-container h1 {
-        font-size: 34px;
+    .review-form button {
+      width: 360px;
     }
   }
 
   /* XL */
 @media (min-width: 1200px) {
-    .moviedetails-container h1 {
-        font-size: 48px;
-    }
+  .review-form {
+    padding: 20px 40px;
+  }
 }

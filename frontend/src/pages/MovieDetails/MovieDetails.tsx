@@ -7,18 +7,14 @@ import { Movie } from '../../types/movie';
 import { Review } from '../../types/review';
 import { SpringList } from '../../types/spring';
 import { hasAnyRoles } from '../../util/auth';
-import { requestBackend, postReview } from '../../util/requests';
+import { postReview, requestBackend } from '../../util/requests';
 import ReviewCard from './ReviewCard/ReviewCard';
 
 import './MovieDetails.css';
+import MovieCard from '../../components/MovieCard/MovieCard';
 
 type UrlParams = {
     movieId: string;
-}
-
-type FormData = {
-    text: string;
-    movieId: number;
 }
 
 const MovieDetails = () => {
@@ -26,7 +22,7 @@ const MovieDetails = () => {
 
     const [movie, setMovie] = useState<Movie>();
 
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<Review>();
 
     const [reviews, setReviews] = useState<SpringList<Review>>();
 
@@ -55,10 +51,13 @@ const MovieDetails = () => {
         });
     }, [movieId]);
 
-    const onSubmit = (formData: FormData) => {
-        formData.movieId = Number(movieId);
-        console.log(formData.text);
-        postReview(formData)
+    const onSubmit = (formData: Review) => {
+        const data = {
+            ...formData,
+            movieId: Number(movieId),
+        }
+
+        postReview(data)
             .then((response) => {
                 reviews?.data.push(response.data);
                 setHasError(false);
@@ -68,12 +67,44 @@ const MovieDetails = () => {
                 setHasError(true);
                 console.log('ERRO', error);
             });
+
         setValue('text', '');
     };
 
+    // const onSubmit = (formData: Review) => {
+    //     const data = {
+    //         ...formData,
+    //         movieId: Number(movieId),
+    //     }
+
+    //     const config: AxiosRequestConfig = {
+    //         method: 'POST',
+    //         url: '/reviews',
+    //         data,
+    //         withCredentials: true,
+    //     };
+
+    //     requestBackend(config)
+    //         .then(() => {
+    //             setHasError(false);
+    //         })
+    //         .catch((error) => {
+    //             setHasError(true);
+    //             console.log('ERRO', error);
+    //         });
+
+    //     setValue('text', '');
+    // };
+
     return (
         <div className="moviedetails-container">
-            <h1>Tela detalhes do filme id: {movie?.id}</h1>
+            <MovieCard
+                title={movie?.title}
+                year={movie?.year}
+                subTitle={movie?.subTitle}
+                imgUrl={movie?.imgUrl}
+                synopsis={movie?.synopsis}
+            />
             {hasAnyRoles(['ROLE_MEMBER']) &&
                 <div className="review-form base-card">
                     {hasError && (

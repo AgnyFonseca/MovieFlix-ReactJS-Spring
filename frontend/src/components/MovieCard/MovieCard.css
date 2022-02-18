@@ -1,0 +1,118 @@
+.movie-card-container {
+    margin-bottom: 20px;
+    min-height: 340px;
+}
+
+.movie-card-container-synopsis {
+    display: block;
+    margin-bottom: 20px;
+    min-height: 340px;
+}
+
+.movie-card-image-synopsis img {
+ padding: 0 12px;
+}
+
+.movie-card-image {
+    margin-top: 20px;
+    width: 100%;
+    height: 170px;
+}
+
+.movie-card-content-container {
+    padding: 12px;
+}
+
+.movie-card-content-container-synopsis {
+    padding: 12px;
+}
+
+.movie-card-year {
+    font-weight: bold;
+    font-size: 16px;   
+    color: #FFC700;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.movie-card-subtitle {
+    font-weight: normal;
+    font-size: 14px;
+    padding-bottom: 15px;
+}
+
+.movie-card-synopsis-box {
+    border: 1px solid #E1E1E1;
+    border-radius: 4px;
+}
+
+.movie-card-synopsis-text {
+    padding: 8px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: justify;
+    letter-spacing: -0.015em;
+    color: #9E9E9E; 
+}
+
+/* SM */
+@media (min-width: 576px) {
+    .movie-card-image-synopsis img {
+        height: 300px;
+    }
+}
+  
+/* MD */
+@media (min-width: 768px) {
+    .movie-card-content-container-synopsis h5 {
+        font-size: 36px;
+    }
+
+    .movie-card-content-container-synopsis .movie-card-year {
+        font-size: 24px;
+    }
+
+    .movie-card-content-container-synopsis .movie-card-subtitle {
+        font-size: 20px;
+    }
+
+    .movie-card-content-container-synopsis .movie-card-synopsis-text {
+        font-size: 18px;
+    }
+}
+  
+/* LG */
+@media (min-width: 992px) {
+    .movie-card-image-synopsis {
+        text-align: center;
+    }
+
+    .movie-card-image-synopsis img {
+        text-align: center;
+        width: 600px;
+        height: 380px;
+    }
+}
+  
+/* XL */
+@media (min-width: 1200px) {
+    .movie-card-container-synopsis {
+        display: flex;
+    }
+
+    .movie-card-image-synopsis img {
+        padding: 0px;
+        text-align: start;
+        width: 500px;
+        height: 300px;
+       }
+
+    .movie-card-image-synopsis .movie-card-image {
+        margin: 40px;
+    }
+
+    .movie-card-content-container-synopsis {
+        padding: 40px 40px 40px 0;
+    }
+}

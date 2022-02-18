@@ -23,3 +23,10 @@
     line-height: 22px;
     color: #9E9E9E;
 }
+
+/* XL */
+@media (min-width: 1200px) {
+    .review-container {
+        padding: 18px 40px;
+    }
+}

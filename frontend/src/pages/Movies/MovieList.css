@@ -1,0 +1,17 @@
+.movie-list-container {
+    padding: 20px 8px;
+}
+
+ /* MD */
+ @media (min-width: 768px) {
+    .movie-list-container {
+      padding: 30px 40px;
+    }
+  }
+
+  /* L */
+  @media (min-width: 992px) {
+    .movie-list-container {
+      padding: 40px 60px;
+    }
+  }
