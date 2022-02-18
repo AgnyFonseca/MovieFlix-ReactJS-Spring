@@ -2,6 +2,49 @@
     padding: 20px 8px;
 }
 
+.movie-list-select-box {
+  margin-bottom: 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-list-select__control {
+  height: 50px;
+  width: 260px;
+  border: 1px solid #E1E1E1 !important;
+  border-radius: 4px !important;
+  background-color: #6C6C6C !important;
+}
+
+.movie-list-select__placeholder {
+  font-size: 16px !important;
+  color: #fff !important;
+  margin-bottom: 10px !important;
+  margin-left: 5px !important;
+}
+
+.movie-list-select__indicators {
+  margin-bottom: 10px !important;
+  margin-right: 5px !important;
+}
+
+.movie-list-select__indicator-separator {
+  display: none;
+}
+
+/* SM */
+@media (min-width: 576px) {
+  .movie-list-select-box {
+    justify-content: flex-start;
+  }
+
+  .movie-list-select__control {
+    margin-left: 20px;
+  }
+}
+
  /* MD */
  @media (min-width: 768px) {
     .movie-list-container {
