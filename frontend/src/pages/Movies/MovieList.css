@@ -30,6 +30,10 @@
   margin-right: 5px !important;
 }
 
+.movie-list-select__indicator {
+  color: #fff !important;
+}
+
 .movie-list-select__indicator-separator {
   display: none;
 }
