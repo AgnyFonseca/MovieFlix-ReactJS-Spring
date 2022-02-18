@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import MovieCard from '../../components/MovieCard/MovieCard';
 import { Movie } from '../../types/movie';
 import { SpringPage } from '../../types/spring';
@@ -27,14 +28,16 @@ const MovieList = () => {
     return (
         <div className="movie-list-container">
             <div className="row">
-                {page?.content.map((movie) => (
-                    <div className="col-sm-6 col-lg-4 col-xl-3" key={movie.id}>
-                        <MovieCard
-                            title={movie.title}
-                            year={movie.year}
-                            subTitle={movie.subTitle}
-                            imgUrl={movie.imgUrl}
-                        />
+                {page?.content.map((item) => (
+                    <div className="col-sm-6 col-lg-4 col-xl-3" key={item.id}>
+                        <Link to={`/movies/${item.id}`}>
+                            <MovieCard
+                                title={item.title}
+                                year={item.year}
+                                subTitle={item.subTitle}
+                                imgUrl={item.imgUrl}
+                            />
+                        </Link>
                     </div>
                 ))}
             </div>
