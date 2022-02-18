@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import MovieCard from '../../components/MovieCard/MovieCard';
+import { Genre } from '../../types/genre';
 import { Movie } from '../../types/movie';
 import { SpringPage } from '../../types/spring';
 import { requestBackend } from '../../util/requests';
@@ -11,11 +12,7 @@ import './MovieList.css';
 const MovieList = () => {
     const [page, setPage] = useState<SpringPage<Movie>>();
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
+    const [selectGenres, setSelectGenres] = useState<Genre[]>([]);
 
     useEffect(() => {
         const params: AxiosRequestConfig = {
@@ -32,12 +29,25 @@ const MovieList = () => {
         });
     }, []);
 
+    useEffect(() => {
+        const params: AxiosRequestConfig = {
+            url: '/genres',
+            withCredentials: true,
+        };
+
+        requestBackend(params).then((response) => {
+            setSelectGenres(response.data);
+        });
+    }, []);
+
     return (
         <div className="movie-list-container">
             <div className="movie-list-select-box base-card">
                 <Select
-                    options={options}
+                    options={selectGenres}
                     classNamePrefix="movie-list-select"
+                    getOptionLabel={(genre: Genre) => genre.name}
+                    getOptionValue={(genre: Genre) => String(genre.id)}
                 />
             </div>
             <div className="row">

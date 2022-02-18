@@ -34,6 +34,13 @@
   display: none;
 }
 
+.movie-list-select__single-value {
+  font-size: 16px !important;
+  color: #fff !important;
+  margin-bottom: 10px !important;
+  margin-left: 5px !important;
+}
+
 /* SM */
 @media (min-width: 576px) {
   .movie-list-select-box {
