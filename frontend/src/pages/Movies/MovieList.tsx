@@ -1,10 +1,9 @@
 import { AxiosRequestConfig } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Select from 'react-select';
 import MovieCard from '../../components/MovieCard/MovieCard';
+import MovieFilter, { GenreFilterData } from '../../components/MovieFilter/MovieFilter';
 import Pagination from '../../components/Pagination/Pagination';
-import { Genre } from '../../types/genre';
 import { Movie } from '../../types/movie';
 import { SpringPage } from '../../types/spring';
 import { requestBackend } from '../../util/requests';
@@ -12,6 +11,7 @@ import './MovieList.css';
 
 type ControlComponentsData = {
     activePage: number;
+    filterData: GenreFilterData;
 }
 
 const MovieList = () => {
@@ -19,24 +19,24 @@ const MovieList = () => {
 
     const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>(
         {
-            activePage: 0
+            activePage: 0,
+            filterData: { genre: null }
         }
     );
 
-    const [selectGenres, setSelectGenres] = useState<Genre[]>([]);
-
     const handlePageChange = (pageNumber: number) => {
-        setControlComponentsData({ activePage: pageNumber });
+        setControlComponentsData({ activePage: pageNumber, filterData: controlComponentsData.filterData });
     }
 
     const getMovies = useCallback(() => {
         const config: AxiosRequestConfig = {
             method: 'GET',
-            url: '/movies?genreId=0',
+            url: '/movies',
             withCredentials: true,
             params: {
                 page: controlComponentsData.activePage,
-                size: 2,
+                size: 4,
+                genreId: controlComponentsData.filterData.genre?.id,
             },
         };
 
@@ -49,31 +49,13 @@ const MovieList = () => {
         getMovies();
     }, [getMovies]);
 
-    useEffect(() => {
-        const params: AxiosRequestConfig = {
-            url: '/genres',
-            withCredentials: true,
-        };
-
-        requestBackend(params).then((response) => {
-            setSelectGenres(response.data);
-        });
-    }, []);
-
+    const handleSubmitFilter = (data: GenreFilterData) => {
+        setControlComponentsData({ activePage: 0, filterData: data });
+    };
 
     return (
         <div className="movie-list-container">
-            <div className="movie-list-select-box base-card">
-                <Select
-                    options={selectGenres}
-                    classNamePrefix="movie-list-select"
-                    isClearable
-                    placeholder="Genero"
-                    // onChange={(value) => handleChangeGenre(value as Genre)}
-                    getOptionLabel={(genre: Genre) => genre.name}
-                    getOptionValue={(genre: Genre) => String(genre.id)}
-                />
-            </div>
+            <MovieFilter onSubmitFilter={handleSubmitFilter} />
             <div className="row">
                 {page?.content.map((item) => (
                     <div className="col-sm-6 col-lg-4 col-xl-3" key={item.id}>
