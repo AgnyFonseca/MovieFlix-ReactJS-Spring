@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import MovieCard from '../../components/MovieCard/MovieCard';
@@ -10,29 +10,44 @@ import { SpringPage } from '../../types/spring';
 import { requestBackend } from '../../util/requests';
 import './MovieList.css';
 
+type ControlComponentsData = {
+    activePage: number;
+}
+
 const MovieList = () => {
     const [page, setPage] = useState<SpringPage<Movie>>();
 
+    const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>(
+        {
+            activePage: 0
+        }
+    );
+
     const [selectGenres, setSelectGenres] = useState<Genre[]>([]);
 
-    const getMovies = (pageNumber: number) => {
+    const handlePageChange = (pageNumber: number) => {
+        setControlComponentsData({ activePage: pageNumber });
+    }
+
+    const getMovies = useCallback(() => {
         const config: AxiosRequestConfig = {
             method: 'GET',
             url: '/movies?genreId=0',
             withCredentials: true,
             params: {
-                page: pageNumber,
+                page: controlComponentsData.activePage,
                 size: 2,
             },
         };
+
         requestBackend(config).then((response) => {
             setPage(response.data);
         });
-    }
+    }, [controlComponentsData]);
 
     useEffect(() => {
-        getMovies(0);
-    }, []);
+        getMovies();
+    }, [getMovies]);
 
     useEffect(() => {
         const params: AxiosRequestConfig = {
@@ -78,7 +93,7 @@ const MovieList = () => {
                 forcePage={page?.number}
                 pageCount={page ? page.totalPages : 0}
                 range={3}
-                onChange={getMovies}
+                onChange={handlePageChange}
             />
         </div>
     );
