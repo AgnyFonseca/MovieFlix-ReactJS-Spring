@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import CardLoader from '../../components/CardLoader/CardLoader';
 import MovieCard from '../../components/MovieCard/MovieCard';
 import MovieFilter, { GenreFilterData } from '../../components/MovieFilter/MovieFilter';
 import Pagination from '../../components/Pagination/Pagination';
@@ -16,6 +17,7 @@ type ControlComponentsData = {
 
 const MovieList = () => {
     const [page, setPage] = useState<SpringPage<Movie>>();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>(
         {
@@ -40,9 +42,14 @@ const MovieList = () => {
             },
         };
 
-        requestBackend(config).then((response) => {
-            setPage(response.data);
-        });
+        setIsLoading(true);
+        requestBackend(config)
+            .then((response) => {
+                setPage(response.data);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, [controlComponentsData]);
 
     useEffect(() => {
@@ -57,7 +64,8 @@ const MovieList = () => {
         <div className="movie-list-container">
             <MovieFilter onSubmitFilter={handleSubmitFilter} />
             <div className="row">
-                {page?.content.map((item) => (
+                {isLoading ? <CardLoader /> : (
+                    page?.content.map((item) => (
                     <div className="col-sm-6 col-lg-4 col-xl-3" key={item.id}>
                         <Link to={`/movies/${item.id}`}>
                             <MovieCard
@@ -68,7 +76,7 @@ const MovieList = () => {
                             />
                         </Link>
                     </div>
-                ))}
+                )))}
             </div>
 
             <Pagination
