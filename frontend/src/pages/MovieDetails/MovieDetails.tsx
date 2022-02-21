@@ -9,9 +9,11 @@ import { SpringList } from '../../types/spring';
 import { hasAnyRoles } from '../../util/auth';
 import { postReview, requestBackend } from '../../util/requests';
 import ReviewCard from './ReviewCard/ReviewCard';
+import MovieCard from '../../components/MovieCard/MovieCard';
+import { toast } from 'react-toastify';
 
 import './MovieDetails.css';
-import MovieCard from '../../components/MovieCard/MovieCard';
+
 
 type UrlParams = {
     movieId: string;
@@ -25,8 +27,6 @@ const MovieDetails = () => {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<Review>();
 
     const [reviews, setReviews] = useState<SpringList<Review>>();
-
-    const [hasError, setHasError] = useState(false);
 
     const history = useHistory();
 
@@ -60,12 +60,11 @@ const MovieDetails = () => {
         postReview(data)
             .then((response) => {
                 reviews?.data.push(response.data);
-                setHasError(false);
+                toast.info('Avaliação salva com sucesso!');
                 history.push(`/movies/${movieId}/reviews`);
             })
             .catch((error) => {
-                setHasError(true);
-                console.log('ERRO', error);
+                toast.error('ERRO ao tentar salvar a avaliação.');
             });
 
         setValue('text', '');
@@ -107,11 +106,6 @@ const MovieDetails = () => {
             />
             {hasAnyRoles(['ROLE_MEMBER']) &&
                 <div className="review-form base-card">
-                    {hasError && (
-                        <div className="alert alert-danger">
-                            Erro ao tentar salvar a avaliação
-                        </div>
-                    )}
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input
                             {...register('text', {
